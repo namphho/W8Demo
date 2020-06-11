@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <Button
+        android:id="@+id/btn_async_task"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Async Task"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_work_manager"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Work Manager"
+        app:layout_constraintEnd_toEndOf="@+id/btn_async_task"
+        app:layout_constraintStart_toStartOf="@+id/btn_async_task"
+        app:layout_constraintTop_toBottomOf="@+id/btn_async_task" />
+
+    <Button
+        android:id="@+id/btn_coroutines"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Coroutines"
+        app:layout_constraintEnd_toEndOf="@+id/btn_work_manager"
+        app:layout_constraintStart_toStartOf="@+id/btn_work_manager"
+        app:layout_constraintTop_toBottomOf="@+id/btn_work_manager" />
+</androidx.constraintlayout.widget.ConstraintLayout>
