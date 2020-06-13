@@ -2,6 +2,7 @@ package com.hnam.w8demo
 
 import android.graphics.Movie
 import android.os.AsyncTask
+import android.util.Log
 import com.hnam.w8demo.service.MovieService
 import com.hnam.w8demo.service.Video
 import java.io.IOException
@@ -13,6 +14,9 @@ import java.net.SocketTimeoutException
 data class LoadMovieResult(val status: Int, val errorMessage: String, val data: List<Video>)
 
 class LoadMovieAsyncTask(private var callback: onCallback?) : AsyncTask<Void, Void, LoadMovieResult>() {
+    companion object {
+        private val TAG = LoadMovieAsyncTask::class.java.simpleName
+    }
     interface onCallback{
         fun onResult(videos: List<Video>)
         fun onError(msg: String)
@@ -23,6 +27,7 @@ class LoadMovieAsyncTask(private var callback: onCallback?) : AsyncTask<Void, Vo
         var errMsg = ""
         var data = emptyList<Video>()
         try {
+            Log.e(TAG, "doInBackground: ${Thread.currentThread().name}")
             val resp = MovieService.getApi().getNowPlaying().execute()
             if (resp.isSuccessful){
                 val code = resp.code()
@@ -47,6 +52,7 @@ class LoadMovieAsyncTask(private var callback: onCallback?) : AsyncTask<Void, Vo
 
     override fun onPostExecute(result: LoadMovieResult) {
         super.onPostExecute(result)
+        Log.e(TAG, "onPostExecute: ${Thread.currentThread().name}")
         when(result.status){
             200 -> callback?.onResult(result.data)
             else -> callback?.onError(result.errorMessage)

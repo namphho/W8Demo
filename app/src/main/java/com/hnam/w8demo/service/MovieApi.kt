@@ -16,5 +16,8 @@ interface MovieApi {
     fun getNowPlaying(): Call<VideoResponse>
 
     @GET("movie/now_playing")
-    suspend fun getNowPlayingSuspend(): VideoResponse
+    suspend fun getNowPlayingCoroutine(): VideoResponse
+
+    @GET("movie/top_rated")
+    suspend fun getTopRateMovieCoroutine() : VideoResponse
 }

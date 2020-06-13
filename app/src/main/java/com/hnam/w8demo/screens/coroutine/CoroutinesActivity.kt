@@ -1,5 +1,6 @@
 package com.hnam.w8demo.screens.coroutine
 
+import android.graphics.Movie
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -18,9 +19,25 @@ class CoroutinesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutine)
 
-        //demo problems
-        //demo execute
+        //demo
+        scope = CoroutineScope(Dispatchers.Main)
+        scope.launch {
+            Log.e(TAG, Thread.currentThread().toString())
+            val nowResp = withContext(Dispatchers.IO){
+                Log.e(TAG,"==== get network: " + Thread.currentThread().toString())
+                MovieService.getApi().getNowPlayingCoroutine()
+            }
+            val topResp = withContext(Dispatchers.IO){
+                MovieService.getApi().getTopRateMovieCoroutine()
+            }
+            Log.e(TAG, "show result content")
+            tv_content.text = "now resp: ${nowResp.totalPages}  top Resp: ${topResp.totalPages}"
+        }
         //demo cancels
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
+    }
 }

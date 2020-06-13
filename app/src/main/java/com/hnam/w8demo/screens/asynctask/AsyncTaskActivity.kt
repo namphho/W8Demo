@@ -19,7 +19,17 @@ class AsyncTaskActivity : AppCompatActivity(), LoadMovieAsyncTask.onCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_async_task)
         button.setOnClickListener {
-            LoadMovieAsyncTask(this).execute()
+            LoadMovieAsyncTask(object : LoadMovieAsyncTask.onCallback{
+                override fun onResult(videos: List<Video>) {
+                    Timber.tag(TAG).e(videos.toString())
+                    tv.text = "total size: ${videos.size}"
+                }
+
+                override fun onError(msg: String) {
+                    tv.text = "error: $msg"
+                }
+
+            }).execute()
         }
         val d: DownloadManager
     }
